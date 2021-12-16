@@ -7,9 +7,9 @@ metadata:
     app.openshift.io/vcs-uri: 'https://github.com/openshift-katacoda/blog-django-py.git'
     deployment.kubernetes.io/revision: '2'
     image.openshift.io/triggers: >-
-      [{"from":{"kind":"ImageStreamTag","name":"blog-django-py:latest","namespace":"fiap"},"fieldPath":"spec.template.spec.containers[?(@.name==\"blog-django-py\")].image","pause":"false"}]
+      [{"from":{"kind":"ImageStreamTag","name":"blog-django-py:latest","namespace":"new"},"fieldPath":"spec.template.spec.containers[?(@.name==\"blog-django-py\")].image","pause":"false"}]
     openshift.io/generated-by: OpenShiftWebConsole
-  selfLink: /apis/apps/v1/namespaces/fiap/deployments/blog-django-py
+  selfLink: /apis/apps/v1/namespaces/new/deployments/blog-django-py
   resourceVersion: '6631556'
   name: blog-django-py
   uid: d37dc532-577c-42ed-acab-8a78b785070f
@@ -148,7 +148,7 @@ spec:
       containers:
         - name: blog-django-py
           image: >-
-            image-registry.openshift-image-registry.svc:5000/fiap/blog-django-py@sha256:a8f9addbe951f01e108d6056ff882f474425b5015f4c190a49ca8e798aba2c1c
+            image-registry.openshift-image-registry.svc:5000/new/blog-django-py@sha256:a8f9addbe951f01e108d6056ff882f474425b5015f4c190a49ca8e798aba2c1c
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -195,7 +195,7 @@ metadata:
     openshift.io/generated-by: OpenShiftNewApp
     template.alpha.openshift.io/wait-for-ready: 'true'
   selfLink: >-
-    /apis/apps.openshift.io/v1/namespaces/fiap/deploymentconfigs/sample-database
+    /apis/apps.openshift.io/v1/namespaces/new/deploymentconfigs/sample-database
   resourceVersion: '37545745'
   name: sample-database
   uid: dd9fd604-e68e-45e0-a626-b55ec599e038
@@ -376,7 +376,7 @@ metadata:
           'f:observedGeneration': {}
           'f:unavailableReplicas': {}
           'f:latestVersion': {}
-  namespace: fiap
+  namespace: new
   labels:
     app: sample-database
     app.kubernetes.io/component: sample-database
@@ -506,8 +506,8 @@ status:
 ﻿apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: hpa-fiap
-  namespace: fiap
+  name: hpa-new
+  namespace: new
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
