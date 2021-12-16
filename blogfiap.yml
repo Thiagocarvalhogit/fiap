@@ -124,7 +124,7 @@ metadata:
           'f:readyReplicas': {}
           'f:replicas': {}
           'f:updatedReplicas': {}
-  namespace: new
+  namespace: blogfiap
   labels:
     app: blog-django-py
     app.kubernetes.io/component: blog-django-py
