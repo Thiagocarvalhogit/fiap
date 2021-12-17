@@ -148,7 +148,7 @@ spec:
       containers:
         - name: blog-django-py-git
           image: >-
-            image-registry.openshift-image-registry.svc:5000/fiap341865/blog-django-py-git
+            image-registry.openshift-image-registry.svc:5000/fiap341865/blog-django-py-git:latest
           ports:
             - containerPort: 8080
               protocol: TCP
