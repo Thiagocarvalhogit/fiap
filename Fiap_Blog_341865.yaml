@@ -1,10 +1,3 @@
-# This OpenShift template will build a docker image using the Dockerfile found in the git repository
-# and then deploy it
-# To use it, you need to upload the template :
-# $ oc create -f openshift-template.yml
-# And create your application, either with the web console, or the cli :
-# $ oc new-app --template=openshift-dashboard -p APPLICATION_NAME=dashboard,DASHBOARD_TITLE="My OpenShift Dashboard",ROUTE_DNS=dashboard.somedomain.com
-
 kind: Deployment
 apiVersion: apps/v1
 metadata:
@@ -55,17 +48,17 @@ objects:
 - kind: ImageStream
   apiVersion: v1
   metadata:
-    name: ${APPLICATION_NAME}
+    name: blog-django-py
     labels:
-      application: ${APPLICATION_NAME}
+      application: blog-django-py
 
 # defines the build configuration (using the Docker strategy)
 - kind: BuildConfig
   apiVersion: v1
   metadata:
-    name: ${APPLICATION_NAME}
+    name: blog-django-py
     labels:
-      application: ${APPLICATION_NAME}
+      application: blog-django-py
   spec:
     strategy:
       type: Docker
@@ -81,7 +74,7 @@ objects:
     output:
       to:
         kind: ImageStreamTag
-        name: ${APPLICATION_NAME}:latest
+        name: blog-django-py:latest
     triggers:
     - type: ImageChange
 
@@ -89,13 +82,13 @@ objects:
 - kind: DeploymentConfig
   apiVersion: v1
   metadata:
-    name: ${APPLICATION_NAME}
+    name: blog-django-py
     labels:
-      application: ${APPLICATION_NAME}
+      application: blog-django-py
   spec:
     replicas: 1
     selector:
-      deploymentconfig: ${APPLICATION_NAME}
+      deploymentconfig: blog-django-py
     strategy:
       type: Rolling
       rollingParams:
@@ -104,20 +97,20 @@ objects:
         updatePeriodSeconds: 1
     template:
       metadata:
-        name: ${APPLICATION_NAME}
+        name: blog-django-py
         labels:
-          deploymentconfig: ${APPLICATION_NAME}
-          application: ${APPLICATION_NAME}
+          deploymentconfig: blog-django-py
+          application: blog-django-py
       spec:
         # this is our custom service account, that might have more rights
         serviceAccount: dashboard
         containers:
-        - name: ${APPLICATION_NAME}
-          image: ${APPLICATION_NAME}:latest
+        - name: blog-django-py
+          image: blog-django-py:latest
           # app config through env variables
           env:
-          - name: DASHBOARD_TITLE
-            value: ${DASHBOARD_TITLE}
+          - name: dashboard_blog
+            value: dashboard
           - name: PORT
             value: "8080"
           - name: GO_ENV
@@ -136,31 +129,31 @@ objects:
         automatic: true
         from:
           kind: ImageStreamTag
-          name: ${APPLICATION_NAME}:latest
+          name: blog-django-py:latest
         containerNames:
-        - ${APPLICATION_NAME}
+        - blog-django-py
   status: {}
 
 - kind: Service
   apiVersion: v1
   metadata:
-    name: ${APPLICATION_NAME}
+    name: blog-django-py
     labels:
-      application: ${APPLICATION_NAME}
+      application: blog-django-py
   spec:
     selector:
-      deploymentconfig: ${APPLICATION_NAME}
+      deploymentconfig: blog-django-py
     ports:
     - port: 8080
 
 - kind: Route
   apiVersion: v1
   metadata:
-    name: ${APPLICATION_NAME}
+    name: blog-django-py
     labels:
-      application: ${APPLICATION_NAME}
+      application: blog-django-py
   spec:
-    host: ${ROUTE_DNS}
+    host: blog-django-py-git-fiap-341865.apps.na46.prod.nextcle.com
     to:
       kind: Service
-      name: ${APPLICATION_NAME}
+      name: blog-django-py
