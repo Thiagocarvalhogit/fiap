@@ -82,7 +82,7 @@ status:
     namespace: django
     name: blog-django-py-git
   outputDockerImageReference: >-
-    image-registry.openshift-image-registry.svc:5000/django/blog-django-py-git:latest
+    image-registry.openshift-image-registry.svc:5000/fiap341865/blog-django-py-git:latest
   duration: 89000000000
   startTimestamp: '2021-12-16T23:52:47Z'
   stages:
