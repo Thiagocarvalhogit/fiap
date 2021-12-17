@@ -6,7 +6,7 @@
 # $ oc new-app --template=openshift-dashboard -p APPLICATION_NAME=dashboard,DASHBOARD_TITLE="My OpenShift Dashboard",ROUTE_DNS=dashboard.somedomain.com
 
 kind: Deployment
-apiVersion: v1
+apiVersion: app/v1
 metadata:
   name: blog-django-py
   annotations:
