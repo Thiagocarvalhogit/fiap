@@ -5,28 +5,34 @@
 # And create your application, either with the web console, or the cli :
 # $ oc new-app --template=openshift-dashboard -p APPLICATION_NAME=dashboard,DASHBOARD_TITLE="My OpenShift Dashboard",ROUTE_DNS=dashboard.somedomain.com
 
-kind: Template
+kind: Deployment
 apiVersion: v1
 metadata:
-  name: openshift-dashboard
+  name: blog-django-py
   annotations:
-    description: Build and deploy the OpenShift dashboard application.
-    tags: openshift,dashboard
+    description: Build and deploy blog-django-py application.
+    tags: frontend,blog
 labels:
   # list of labels that are applied to every object during the template to config transformation
-  template: openshift-dashboard
+    app: blog-django-py
+    app.kubernetes.io/component: blog-django-py
+    app.kubernetes.io/instance: blog-django-py
+    app.kubernetes.io/name: python
+    app.kubernetes.io/part-of: blog-app
+    app.openshift.io/runtime: python
+    app.openshift.io/runtime-version: 3.8-ubi7
 
 parameters:
 
-- name: APPLICATION_NAME
+- name: blog-django-py
   description: The name of the application
   value: dashboard
-- name: DASHBOARD_TITLE
+- name: dashboard_blog
   description: The title of the dashboard
-  value: OpenShift Dashboard
-- name: ROUTE_DNS
+  value: blog-django-py dashboard
+- name: blog-django-py-git-fiap-341865.apps.na46.prod.nextcle.com
   description: The DNS to use for the route
-  value: 
+  value: blog-django-py-git-fiap-341865
 
 objects:
 
@@ -64,7 +70,7 @@ objects:
     source:
       type: Git
       git:
-        uri: https://github.com/vbehar/openshift-dashboard.git
+        uri: https://github.com/openshift-instruqt/blog-django-py.git
     output:
       to:
         kind: ImageStreamTag
