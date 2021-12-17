@@ -10,7 +10,7 @@ metadata:
   name: blog-django-py-git-1
   uid: 9d68f797-7649-4992-a807-3f32649277a6
   creationTimestamp: '2021-12-16T23:52:47Z'
-  namespace: django
+  namespace: fiap341865
   ownerReferences:
     - apiVersion: build.openshift.io/v1
       kind: BuildConfig
