@@ -6,12 +6,19 @@
 # $ oc new-app --template=openshift-dashboard -p APPLICATION_NAME=dashboard,DASHBOARD_TITLE="My OpenShift Dashboard",ROUTE_DNS=dashboard.somedomain.com
 
 kind: Deployment
-apiVersion: app/v1
+apiVersion: apps/v1
 metadata:
-  name: blog-django-py
   annotations:
-    description: Build and deploy blog-django-py application.
-    tags: frontend,blog
+    alpha.image.policy.openshift.io/resolve-names: '*'
+    app.openshift.io/vcs-ref: ''
+    app.openshift.io/vcs-uri: 'https://github.com/openshift-katacoda/blog-django-py.git'
+    deployment.kubernetes.io/revision: '2'
+    image.openshift.io/triggers: >-
+      [{"from":{"kind":"ImageStreamTag","name":"blog-django-py:latest","namespace":"fiap-341865"},"fieldPath":"spec.template.spec.containers[?(@.name==\"blog-django-py\")].image","pause":"false"}]
+    openshift.io/generated-by: OpenShiftWebConsole
+  selfLink: /apis/apps/v1/namespaces/new/deployments/blog-django-py
+  name: blog-django-py
+
 labels:
   # list of labels that are applied to every object during the template to config transformation
     app: blog-django-py
