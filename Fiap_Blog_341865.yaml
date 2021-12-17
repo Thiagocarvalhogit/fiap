@@ -13,14 +13,8 @@ metadata:
   name: blog-django-py
 
 labels:
-  # list of labels that are applied to every object during the template to config transformation
-    app: blog-django-py
-    app.kubernetes.io/component: blog-django-py
-    app.kubernetes.io/instance: blog-django-py
-    app.kubernetes.io/name: python
-    app.kubernetes.io/part-of: blog-app
-    app.openshift.io/runtime: python
-    app.openshift.io/runtime-version: 3.8-ubi7
+   # list of labels that are applied to every object during the template to config transformation
+  template: blog-django-py
 
 parameters:
 
