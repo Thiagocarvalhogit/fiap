@@ -7,9 +7,9 @@ metadata:
     app.openshift.io/vcs-uri: 'https://github.com/openshift-instruqt/blog-django-py.git'
     deployment.kubernetes.io/revision: '2'
     image.openshift.io/triggers: >-
-      [{"from":{"kind":"ImageStreamTag","name":"blog-django-py-git:latest","namespace":"blogfiap"},"fieldPath":"spec.template.spec.containers[?(@.name==\"blog-django-py-git\")].image","pause":"false"}]
+      [{"from":{"kind":"ImageStreamTag","name":"blog-django-py-git:latest","namespace":"fiap341865"},"fieldPath":"spec.template.spec.containers[?(@.name==\"blog-django-py-git\")].image","pause":"false"}]
     openshift.io/generated-by: OpenShiftWebConsole
-  selfLink: /apis/apps/v1/namespaces/blogfiap/deployments/blog-django-py-git
+  selfLink: /apis/apps/v1/namespaces/fiap341865/deployments/blog-django-py-git
   resourceVersion: '13513878'
   name: blog-django-py-git
   uid: 1891032d-2eb8-472e-bd4f-b8bba20f7fea
@@ -124,7 +124,7 @@ metadata:
           'f:readyReplicas': {}
           'f:replicas': {}
           'f:updatedReplicas': {}
-  namespace: blogfiap
+  namespace: fiap341865
   labels:
     app: blog-django-py-git
     app.kubernetes.io/component: blog-django-py-git
@@ -148,7 +148,7 @@ spec:
       containers:
         - name: blog-django-py-git
           image: >-
-            image-registry.openshift-image-registry.svc:5000/django/blog-django-py-git@sha256:ab9b441d6788af259a36dc70f6a2cbc3701149441628cbb81a1e8e622fec487c
+            image-registry.openshift-image-registry.svc:5000/fiap341865/blog-django-py-git
           ports:
             - containerPort: 8080
               protocol: TCP
