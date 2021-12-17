@@ -1,25 +1,133 @@
-﻿kind: Deployment
+kind: Build
+apiVersion: build.openshift.io/v1
+metadata:
+  annotations:
+    openshift.io/build-config.name: blog-django-py-git
+    openshift.io/build.number: '1'
+    openshift.io/build.pod-name: blog-django-py-git-1-build
+  selfLink: >-
+    /apis/build.openshift.io/v1/namespaces/fiap341865/builds/blog-django-py-git-1
+  resourceVersion: '14207417'
+  name: blog-django-py-git-1
+  uid: ff077b15-1dfd-446f-a7a6-2d17601e1ddb
+  creationTimestamp: '2021-12-17T16:58:08Z'
+  namespace: fiap341865
+  ownerReferences:
+    - apiVersion: build.openshift.io/v1
+      kind: BuildConfig
+      name: blog-django-py-git
+      uid: e0ad4a78-29d9-48f9-bfc8-cbb0d4c17146
+      controller: true
+  labels:
+    app: blog-django-py-git
+    app.kubernetes.io/part-of: blog-django-py-git-app
+    app.kubernetes.io/instance: blog-django-py-git
+    openshift.io/build-config.name: blog-django-py-git
+    app.kubernetes.io/component: blog-django-py-git
+    openshift.io/build.start-policy: Serial
+    buildconfig: blog-django-py-git
+    app.openshift.io/runtime: python
+    app.kubernetes.io/name: python
+    app.openshift.io/runtime-version: latest
+spec:
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'blog-django-py-git:latest'
+    pushSecret:
+      name: builder-dockercfg-wwtbm
+  resources: {}
+  triggeredBy:
+    - message: Image change
+      imageChangeBuild:
+        imageID: >-
+          image-registry.openshift-image-registry.svc:5000/openshift/python@sha256:09ccc9a03f554b96c843832baa8eee02fe8794e9fab6b9189b789e21d2e0332a
+        fromRef:
+          kind: ImageStreamTag
+          namespace: openshift
+          name: 'python:latest'
+  strategy:
+    type: Source
+    sourceStrategy:
+      from:
+        kind: DockerImage
+        name: >-
+          image-registry.openshift-image-registry.svc:5000/openshift/python@sha256:09ccc9a03f554b96c843832baa8eee02fe8794e9fab6b9189b789e21d2e0332a
+      pullSecret:
+        name: builder-dockercfg-wwtbm
+  postCommit: {}
+  serviceAccount: builder
+  source:
+    type: Git
+    git:
+      uri: 'https://github.com/openshift-instruqt/blog-django-py.git'
+    contextDir: /
+  revision:
+    type: Git
+    git:
+      commit: 9c4f338ab5f3a5ae379ecaa5bcc7d449fa41648e
+      author:
+        name: ryan jarvinen
+        email: ryan.jarvinen@gmail.com
+      committer:
+        name: GitHub
+        email: noreply@github.com
+      message: 'Merge pull request #9 from mixpix3ls/master'
+status:
+  phase: Running
+  startTimestamp: '2021-12-17T16:58:08Z'
+  outputDockerImageReference: >-
+    image-registry.openshift-image-registry.svc:5000/fiap341865/blog-django-py-git:latest
+  config:
+    kind: BuildConfig
+    namespace: fiap341865
+    name: blog-django-py-git
+  output: {}
+  stages:
+    - name: FetchInputs
+      startTime: '2021-12-17T16:58:11Z'
+      durationMilliseconds: 469
+      steps:
+        - name: FetchGitSource
+          startTime: '2021-12-17T16:58:11Z'
+          durationMilliseconds: 469
+  conditions:
+    - type: New
+      status: 'False'
+      lastUpdateTime: '2021-12-17T16:58:08Z'
+      lastTransitionTime: '2021-12-17T16:58:08Z'
+    - type: Pending
+      status: 'False'
+      lastUpdateTime: '2021-12-17T16:58:12Z'
+      lastTransitionTime: '2021-12-17T16:58:12Z'
+    - type: Running
+      status: 'True'
+      lastUpdateTime: '2021-12-17T16:58:12Z'
+      lastTransitionTime: '2021-12-17T16:58:12Z'
+---
+kind: Deployment
 apiVersion: apps/v1
 metadata:
   annotations:
     alpha.image.policy.openshift.io/resolve-names: '*'
     app.openshift.io/vcs-ref: ''
     app.openshift.io/vcs-uri: 'https://github.com/openshift-instruqt/blog-django-py.git'
-    deployment.kubernetes.io/revision: '2'
+    deployment.kubernetes.io/revision: '1'
     image.openshift.io/triggers: >-
       [{"from":{"kind":"ImageStreamTag","name":"blog-django-py-git:latest","namespace":"fiap341865"},"fieldPath":"spec.template.spec.containers[?(@.name==\"blog-django-py-git\")].image","pause":"false"}]
     openshift.io/generated-by: OpenShiftWebConsole
   selfLink: /apis/apps/v1/namespaces/fiap341865/deployments/blog-django-py-git
-  resourceVersion: '14202529'
+  resourceVersion: '14207338'
   name: blog-django-py-git
-  uid: 6692fcf4-32ab-4404-b51f-f4529591339f
-  creationTimestamp: '2021-12-17T16:50:50Z'
-  generation: 2
+  uid: 473c6959-9239-45e2-a1ef-56fc72a7f5ef
+  creationTimestamp: '2021-12-17T16:58:08Z'
+  generation: 1
   managedFields:
     - manager: Mozilla
       operation: Update
       apiVersion: apps/v1
-      time: '2021-12-17T16:50:50Z'
+      time: '2021-12-17T16:58:08Z'
       fieldsType: FieldsV1
       fieldsV1:
         'f:metadata':
@@ -63,6 +171,7 @@ metadata:
               'f:containers':
                 'k:{"name":"blog-django-py-git"}':
                   .: {}
+                  'f:image': {}
                   'f:imagePullPolicy': {}
                   'f:name': {}
                   'f:ports':
@@ -82,7 +191,7 @@ metadata:
     - manager: kube-controller-manager
       operation: Update
       apiVersion: apps/v1
-      time: '2021-12-17T16:52:17Z'
+      time: '2021-12-17T16:58:08Z'
       fieldsType: FieldsV1
       fieldsV1:
         'f:metadata':
@@ -111,18 +220,6 @@ metadata:
           'f:replicas': {}
           'f:unavailableReplicas': {}
           'f:updatedReplicas': {}
-    - manager: openshift-controller-manager
-      operation: Update
-      apiVersion: apps/v1
-      time: '2021-12-17T16:52:17Z'
-      fieldsType: FieldsV1
-      fieldsV1:
-        'f:spec':
-          'f:template':
-            'f:spec':
-              'f:containers':
-                'k:{"name":"blog-django-py-git"}':
-                  'f:image': {}
   namespace: fiap341865
   labels:
     app: blog-django-py-git
@@ -147,7 +244,7 @@ spec:
       containers:
         - name: blog-django-py-git
           image: >-
-            image-registry.openshift-image-registry.svc:5000/fiap341865/blog-django-py-git@sha256:eaaec8bd08f34fd5e81e851a9f7245d0714d5e2c8399dec111a6ae4228c902c7
+            image-registry.openshift-image-registry.svc:5000/fiap341865/blog-django-py-git:latest
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -168,136 +265,20 @@ spec:
   revisionHistoryLimit: 10
   progressDeadlineSeconds: 600
 status:
-  observedGeneration: 2
-  replicas: 2
+  observedGeneration: 1
+  replicas: 1
   updatedReplicas: 1
-  unavailableReplicas: 2
+  unavailableReplicas: 1
   conditions:
     - type: Available
       status: 'False'
-      lastUpdateTime: '2021-12-17T16:50:50Z'
-      lastTransitionTime: '2021-12-17T16:50:50Z'
+      lastUpdateTime: '2021-12-17T16:58:08Z'
+      lastTransitionTime: '2021-12-17T16:58:08Z'
       reason: MinimumReplicasUnavailable
       message: Deployment does not have minimum availability.
     - type: Progressing
       status: 'True'
-      lastUpdateTime: '2021-12-17T16:52:17Z'
-      lastTransitionTime: '2021-12-17T16:50:50Z'
+      lastUpdateTime: '2021-12-17T16:58:08Z'
+      lastTransitionTime: '2021-12-17T16:58:08Z'
       reason: ReplicaSetUpdated
-      message: ReplicaSet "blog-django-py-git-5d65b98c74" is progressing.
----
- kind: BuildConfig
-apiVersion: build.openshift.io/v1
-metadata:
-  annotations:
-    app.openshift.io/vcs-ref: ''
-    app.openshift.io/vcs-uri: 'https://github.com/openshift-instruqt/blog-django-py.git'
-    openshift.io/generated-by: OpenShiftWebConsole
-  selfLink: >-
-    /apis/build.openshift.io/v1/namespaces/fiap341865/buildconfigs/blog-django-py-git
-  resourceVersion: '14201216'
-  name: blog-django-py-git
-  uid: 367d60c9-9e2f-4757-b4e9-fa300364fdcd
-  creationTimestamp: '2021-12-17T16:50:50Z'
-  managedFields:
-    - manager: Mozilla
-      operation: Update
-      apiVersion: build.openshift.io/v1
-      time: '2021-12-17T16:50:50Z'
-      fieldsType: FieldsV1
-      fieldsV1:
-        'f:metadata':
-          'f:annotations':
-            .: {}
-            'f:app.openshift.io/vcs-ref': {}
-            'f:app.openshift.io/vcs-uri': {}
-            'f:openshift.io/generated-by': {}
-          'f:labels':
-            .: {}
-            'f:app': {}
-            'f:app.kubernetes.io/component': {}
-            'f:app.kubernetes.io/instance': {}
-            'f:app.kubernetes.io/name': {}
-            'f:app.kubernetes.io/part-of': {}
-            'f:app.openshift.io/runtime': {}
-            'f:app.openshift.io/runtime-version': {}
-        'f:spec':
-          'f:output':
-            'f:to':
-              .: {}
-              'f:kind': {}
-              'f:name': {}
-          'f:runPolicy': {}
-          'f:source':
-            'f:contextDir': {}
-            'f:git':
-              .: {}
-              'f:uri': {}
-            'f:type': {}
-          'f:strategy':
-            'f:sourceStrategy':
-              .: {}
-              'f:from':
-                .: {}
-                'f:kind': {}
-                'f:name': {}
-                'f:namespace': {}
-            'f:type': {}
-    - manager: openshift-apiserver
-      operation: Update
-      apiVersion: build.openshift.io/v1
-      time: '2021-12-17T16:50:50Z'
-      fieldsType: FieldsV1
-      fieldsV1:
-        'f:spec':
-          'f:triggers': {}
-        'f:status':
-          'f:lastVersion': {}
-  namespace: fiap341865
-  labels:
-    app: blog-django-py-git
-    app.kubernetes.io/component: blog-django-py-git
-    app.kubernetes.io/instance: blog-django-py-git
-    app.kubernetes.io/name: python
-    app.kubernetes.io/part-of: blog-django-py-git-app
-    app.openshift.io/runtime: python
-    app.openshift.io/runtime-version: latest
-spec:
-  nodeSelector: null
-  output:
-    to:
-      kind: ImageStreamTag
-      name: 'blog-django-py-git:latest'
-  resources: {}
-  successfulBuildsHistoryLimit: 5
-  failedBuildsHistoryLimit: 5
-  strategy:
-    type: Source
-    sourceStrategy:
-      from:
-        kind: ImageStreamTag
-        namespace: openshift
-        name: 'python:latest'
-  postCommit: {}
-  source:
-    type: Git
-    git:
-      uri: 'https://github.com/openshift-instruqt/blog-django-py.git'
-    contextDir: /
-  triggers:
-    - type: Generic
-      generic:
-        secretReference:
-          name: blog-django-py-git-generic-webhook-secret
-    - type: GitHub
-      github:
-        secretReference:
-          name: blog-django-py-git-github-webhook-secret
-    - type: ImageChange
-      imageChange:
-        lastTriggeredImageID: >-
-          image-registry.openshift-image-registry.svc:5000/openshift/python@sha256:09ccc9a03f554b96c843832baa8eee02fe8794e9fab6b9189b789e21d2e0332a
-    - type: ConfigChange
-  runPolicy: Serial
-status:
-  lastVersion: 1
+      message: ReplicaSet "blog-django-py-git-5885f879f6" is progressing.
