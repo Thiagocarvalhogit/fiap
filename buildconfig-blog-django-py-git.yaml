@@ -42,7 +42,7 @@ spec:
     - message: Image change
       imageChangeBuild:
         imageID: >-
-          image-registry.openshift-image-registry.svc:5000/openshift/python@sha256:09ccc9a03f554b96c843832baa8eee02fe8794e9fab6b9189b789e21d2e0332a
+          image-registry.openshift-image-registry.svc:5000/fiap341865/blog-django-py-git:latest
         fromRef:
           kind: ImageStreamTag
           namespace: openshift
@@ -53,7 +53,7 @@ spec:
       from:
         kind: DockerImage
         name: >-
-          image-registry.openshift-image-registry.svc:5000/openshift/python@sha256:09ccc9a03f554b96c843832baa8eee02fe8794e9fab6b9189b789e21d2e0332a
+          image-registry.openshift-image-registry.svc:5000/fiap341865/blog-django-py-git:latest
       pullSecret:
         name: builder-dockercfg-wwtbm
   postCommit: {}
