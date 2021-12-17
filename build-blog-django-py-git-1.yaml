@@ -79,7 +79,7 @@ status:
       imageDigest: 'sha256:ab9b441d6788af259a36dc70f6a2cbc3701149441628cbb81a1e8e622fec487c'
   config:
     kind: BuildConfig
-    namespace: django
+    namespace: fiap341865
     name: blog-django-py-git
   outputDockerImageReference: >-
     image-registry.openshift-image-registry.svc:5000/fiap341865/blog-django-py-git:latest
