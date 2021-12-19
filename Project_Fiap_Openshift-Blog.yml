@@ -2,7 +2,7 @@ kind: Secret
 apiVersion: v1
 metadata:
   name: postgresfiapsblog
-  namespace: fiap-341865
+  namespace: fiapsblog
   labels:
     app: postgresfiapsblog
     app.kubernetes.io/component: postgresfiapsblog
