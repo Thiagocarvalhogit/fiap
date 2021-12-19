@@ -233,7 +233,7 @@ status:
 apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: hpa-fblog
+  name: hpa-fiap-341865
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
