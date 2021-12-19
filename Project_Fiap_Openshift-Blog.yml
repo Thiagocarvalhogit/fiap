@@ -1,12 +1,12 @@
 kind: Secret
 apiVersion: v1
 metadata:
-  name: postgresfblog
+  name: postgresfiapsblog
   namespace: fiap-341865
   labels:
-    app: postgresfblog
-    app.kubernetes.io/component: postgresfblog
-    app.kubernetes.io/instance: postgresfblog
+    app: postgresfiapsblog
+    app.kubernetes.io/component: postgresfiapsblog
+    app.kubernetes.io/instance: postgresfiapsblog
     template: postgresql-persistent-template
 stringData:
   database-name: sampledb
@@ -17,7 +17,7 @@ type: Opaque
 kind: DeploymentConfig
 apiVersion: apps.openshift.io/v1
 metadata:
-  name: postgresfblog
+  name: postgresfiapsblog
   generation: 2
   labels:
     template: postgresql-persistent-template
@@ -47,17 +47,17 @@ spec:
   revisionHistoryLimit: 10
   test: false
   selector:
-    name: postgresfblog
+    name: postgresfiapsblog
   template:
     metadata:
       creationTimestamp: null
       labels:
-        name: postgresfblog
+        name: postgresfiapsblog
     spec:
       volumes:
         - name: postgresfblog-data
           persistentVolumeClaim:
-            claimName: postgresfblog
+            claimName: postgresfiapsblog
       containers:
         - resources:
             limits:
@@ -87,17 +87,17 @@ spec:
             - name: POSTGRESQL_USER
               valueFrom:
                 secretKeyRef:
-                  name: postgresfblog
+                  name: postgresfiapsblog
                   key: database-user
             - name: POSTGRESQL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postgresfblog
+                  name: postgresfiapsblog
                   key: database-password
             - name: POSTGRESQL_DATABASE
               valueFrom:
                 secretKeyRef:
-                  name: postgresfblog
+                  name: postgresfiapsblog
                   key: database-name
           securityContext:
             capabilities: {}
@@ -123,7 +123,7 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: postgresfblog
+  name: postgresfiapsblog
   labels:
     app: django-psql-persistent
     template: django-psql-persistent
@@ -134,7 +134,7 @@ spec:
       port: 5432
       targetPort: 5432
   selector:
-    name: postgresfblog
+    name: postgresfiapsblog
   type: ClusterIP
   sessionAffinity: None
 status:
@@ -143,7 +143,7 @@ status:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fiap-blog-app
+  name: fiaps-blog-app
   labels:    
     app: blog-django-py-git
     app.kubernetes.io/component: blog-django-py-git
@@ -155,18 +155,18 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: fiap-blog-app
+      app: fiaps-blog-app
   replicas: 1
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: fiap-blog-app
+        app: fiaps-blog-app
         deploymentconfig: blog-django-py-git
     spec:
       containers:
-        - name: fiap-blog-app
+        - name: fiaps-blog-app
           image: 'openshiftkatacoda/blog-django-py:latest'
           imagePullPolicy: Always
           terminationMessagePath: /dev/termination-log
@@ -180,11 +180,11 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: fiap-blog-app
+  name: fiaps-blog-app
   labels:
-    app: fiap-blog-app
-    app.kubernetes.io/component: fiap-blog-app
-    app.kubernetes.io/instance: fiap-blog-app
+    app: fiaps-blog-app
+    app.kubernetes.io/component: fiaps-blog-app
+    app.kubernetes.io/instance: fiaps-blog-app
     app.kubernetes.io/name: python
     app.kubernetes.io/part-of: blog-app
     app.openshift.io/runtime: python
@@ -196,7 +196,7 @@ spec:
       port: 8080
       targetPort: 8080
   selector:
-    app: fiap-blog-app
+    app: fiaps-blog-app
   type: ClusterIP
   sessionAffinity: None
 status:
@@ -205,27 +205,27 @@ status:
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: fiap-blog-app
+  name: fiaps-blog-app
   labels:
-    app: fiap-blog-app
-    app.kubernetes.io/component: fiap-blog-app
-    app.kubernetes.io/instance: fiap-blog-app
+    app: fiaps-blog-app
+    app.kubernetes.io/component: fiaps-blog-app
+    app.kubernetes.io/instance: fiaps-blog-app
     app.kubernetes.io/name: python
     app.kubernetes.io/part-of: blog-app
     app.openshift.io/runtime: python
     app.openshift.io/runtime-version: 3.8-ubi7
 spec:
-  host: fiap-blog-app.apps.na46.prod.nextcle.com
+  host: fiaps-blog-app.apps.na46.prod.nextcle.com
   to:
     kind: Service
-    name: fiap-blog-app
+    name: fiaps-blog-app
     weight: 100
   port:
     targetPort: 8080-tcp
   wildcardPolicy: None
 status:
   ingress:
-    - host: fiap-blog-app.apps.na46.prod.nextcle.com
+    - host: fiaps-blog-app.apps.na46.prod.nextcle.com
       routerName: default
       wildcardPolicy: None
       routerCanonicalHostname: apps.na46.prod.nextcle.com  
@@ -233,7 +233,7 @@ status:
 apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: hpa-fiap-341865
+  name: hpa-fiapsblog
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
